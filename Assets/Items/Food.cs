@@ -11,6 +11,9 @@ public class Food : IItem
 
     public int basePrice { get; private set; }
 
+public PlayerScript player;
+
+
     public void Pocket(PlayerScript player) =>
         player.inventory.Add(this);
 
@@ -28,11 +31,18 @@ player.inventory.Remove(this);
 
     }
 
-    public void Use(PlayerScript player)
+    public void Use(PlayerScript newPlayer)
     {
+player = newPlayer;
+
 								player.Health += health;
 								player.Movement += movement;
     }
+
+public void Undo(){
+player.Health -= health;
+player.Movement -= movement;
+}
 
 
 }
