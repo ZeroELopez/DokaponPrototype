@@ -42,3 +42,37 @@ public class Arrow : IItem
 
 
 }
+
+
+public class ArrowScript : Monobehaviour
+{
+Arrow arrow;
+int startHour = 0;
+int waitHour = 1; 10 
+bool active = true;
+Animator thisAnimator;
+
+private void Start(){
+startHour = StateManager.hour;
+thisAnimator = GetComponent<Animator>();
+StateManager.newHour += onHour
+}
+
+void onHour{
+if (!active)
+return;
+
+if (startHour + waitHour > StateManager.hour)
+return;
+
+thisAnimator.Play("Fire");
+}
+
+public void setActive(bool on){
+active = on;
+
+if (on)
+startHour = StateManager.hour;
+}
+	
+}
