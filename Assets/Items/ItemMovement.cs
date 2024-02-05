@@ -8,7 +8,7 @@ inputs.Player.Accept.performed += Accept;
 void UnsetInputs(){
 inputs.Player.movement.performed -= onDirection;
 inputs.Player.Accept.performed -= Accept;
-player.SetInputs(true);
+        player.SetControllable(true);
 }
 
 void onDirection(InputAction.CallbackContext context)
