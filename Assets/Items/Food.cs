@@ -14,12 +14,14 @@ public class Food : IItem
     public void Pocket(PlayerScript player) =>
         player.inventory.Add(this);
 
-    float rotation = 0;
-    int pause = 0;
-    int damage = 20;
-    public void Remove()
-    {
-    }
+
+int health;
+int movement;    
+
+
+    public void Remove() =>
+player.inventory.Remove(this);
+    
 
     public void SteppedOn(PlayerScript player)
     {
@@ -28,7 +30,8 @@ public class Food : IItem
 
     public void Use(PlayerScript player)
     {
-
+								player.Health += health;
+								player.Movement += movement;
     }
 
 
