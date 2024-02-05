@@ -27,8 +27,9 @@ public PlayerScript player {get;private set;}
     }
 
 
-    public void Use(PlayerScript player)
+    public void Use(PlayerScript newPlayer)
     {
+player = newPlayer;
         space = BoardScript.instance.board[player.boardPos];
         space.items.Add(this);
     }
