@@ -9,6 +9,7 @@ public class Trap : IItem
 {
     public string name { get; private set; }
     public int basePrice { get; private set; }
+public PlayerScript player {get;private set;}
 
     public int damage = 10;
     public bool forceEndTurn = false;
@@ -31,10 +32,13 @@ public class Trap : IItem
         space = BoardScript.instance.board[player.boardPos];
         space.items.Add(this);
     }
+				public void Undo(){
+space.items.Remove(this);
+}
 
     public void Remove()
     {
-        space.items.Remove(this);
+        
     }
 }
 
