@@ -17,6 +17,7 @@ public class Store : IItem
 				public List<IItem> inventory = new List<IItem>();
 public Action<IItem> BuyItem;
 public Action UndoBuy;
+public Action Confirm;
 int money;
 float multiply 1.0f;
 
@@ -103,6 +104,7 @@ UndoBuy();
 
     void Exit(InputAction.CallbackContext context)
         {
+Confirm();
 UnsetInputs();
 }
 
