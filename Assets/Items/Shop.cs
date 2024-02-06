@@ -16,6 +16,7 @@ public class Store : IItem
 
 				public List<IItem> inventory = new List<IItem>();
 public Action<IItem> BuyItem;
+public Action UndoBuy;
 int money;
 float multiply 1.0f;
 
@@ -91,8 +92,13 @@ inventory.Add(ItemList.Grap(n));
         select += Mathf.ToInt(floatDir.y);
 select = Mathf.Clamp(select,0,inventory.Count - 1);
     }
+
 void Buy(InputAction.CallbackContext context){
 BuyItem(inventory[select]);
+}
+
+void UndoBuy(InputAction.CallbackContext context){
+UndoBuy();
 }
 
     void Exit(InputAction.CallbackContext context)
