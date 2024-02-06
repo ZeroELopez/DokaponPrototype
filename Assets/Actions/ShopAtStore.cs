@@ -10,7 +10,7 @@ public class ShopAtStore : Actions
     public Vector2Int loc { get; set; }
     public Player player { get; set; }
 
-    Shop shop;
+    Store shop;
 
 				List<IItem> items = new List<IItem>();
 
@@ -25,11 +25,16 @@ public class ShopAtStore : Actions
             return;
 
 
-        shop.Start(player);
-shop.BoughtItem += AddItem;
+        shop.Use(player);
+shop.BuyItem += AddItem;
+shop.UndoBuy += RemoveItem;
 
 player.movementPoints--;
     }
+
+void AddItem(IItem newItem) => items.Add(newItem);
+
+void RemoveItem(IItem newItem) => items.Remove(newItem);
 
     public void Reverse()
     {
