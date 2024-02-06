@@ -34,11 +34,17 @@ player.movementPoints--;
 
 void AddItem(IItem newItem) => items.Add(newItem);
 
-void RemoveItem(IItem newItem) => items.Remove(newItem);
+void RemoveItem() => items.RemoveAt(items.Count - 1);
+
+void Confirm(){
+foreach(IItem item in items)
+item.Pocket(player);
+}
 
     public void Reverse()
     {
-        item.Remove();
+        foreach(IItem item in items)
+item.Remove(player);
         player.movementPoints++;
     }
 
