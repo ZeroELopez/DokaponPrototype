@@ -14,9 +14,10 @@ public class ShopAtStore : Actions
 
 				List<IItem> items = new List<IItem>();
 
-    public ShopAtStore(Player newPlayer)
+    public ShopAtStore(Player newPlayer, Store newShop)
     {
         player = newPlayer;
+shop = newShop;
     }
 
     public void Play()
