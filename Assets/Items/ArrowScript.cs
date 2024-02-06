@@ -6,7 +6,7 @@ using System;
 
 public class ArrowScript : MonoBehaviour
 {
-    Arrow arrow;
+    public Arrow arrow;
     int startHour = 0;
     int waitHour = 1;
     bool active = true;
@@ -17,6 +17,11 @@ public class ArrowScript : MonoBehaviour
         startHour = StateManager.hour;
         thisAnimator = GetComponent<Animator>();
         StateManager.onPlayAction += onHour;
+    }
+
+    private void Update()
+    {
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, arrow.rotation));
     }
 
     void onHour(int hour)

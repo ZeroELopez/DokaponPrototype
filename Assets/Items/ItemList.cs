@@ -9,7 +9,7 @@ using UnityEngine;
 public static class ItemList
 {
 
-    public static List<IItem> prefabItems = new List<IItem>();
+    private static List<IItem> prefabItems = new List<IItem>();
 
     public static IItem GetItem(string name)
     {
@@ -17,13 +17,20 @@ public static class ItemList
             if (item.name == name)
                 return item.Copy();
 
-        return null;
+        return prefabItems[0].Copy();
     }
 
     public static void CreateItems()
     {
-        prefabItems.AddRange(new IItem[7]
+        prefabItems.AddRange(new IItem[8]
         {
+                        new Food(
+    newName: "Useless Rock",
+    newDescription: "Absolutely Useless. This is an error catch for copying an item but getting the name wrong",
+    newBasePrice: 0,
+    newHealth: 0,
+    newMovement: 1
+    ),
             new Arrow(
     newName: "Catapult",
     newDescription: "A high damage long range weapon",

@@ -12,7 +12,7 @@ public class Food : IItem
     public int basePrice { get; private set; }
 
     public Player player { get; private set; }
-
+    public SpaceScript space { get; private set; }
     public Food(string newName, string newDescription, int newBasePrice, int newHealth, int newMovement)
     {
         name = newName;

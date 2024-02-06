@@ -4,14 +4,9 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 [System.Serializable]
-public enum PieceType
-{
-    Player,Shop,Catapolt,CrossBolt
-}
-[System.Serializable]
 public class BoardPieces
 {
-    public PieceType type;
+    public string type;
     public GameObject prefab;
 }
 public class BoardScript : MonoBehaviour
@@ -54,6 +49,16 @@ public class BoardScript : MonoBehaviour
             }
 
         UpdateLocations();
+    }
+
+    public void CreateArrow(Arrow arrow)
+    {
+        foreach (BoardPieces piece in piecePrefabs)
+            if (piece.type == arrow.name)
+            {
+                ArrowScript script = Instantiate(piece.prefab, transform).GetComponent<ArrowScript>();
+                script.arrow = arrow;
+            }
     }
 
     void UpdateLocations()

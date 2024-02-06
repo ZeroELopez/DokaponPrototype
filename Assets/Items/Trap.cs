@@ -11,6 +11,8 @@ public class Trap : IItem
     public string description { get; private set; }
     public int basePrice { get; private set; }
     public Player player { get; private set; }
+    public SpaceScript space { get; private set; }
+
 
     public Trap(string newName, string newDescription, int newBasePrice, int newDamage, bool EndTurn)
     {
@@ -24,7 +26,6 @@ public class Trap : IItem
     public int damage = 10;
     public bool forceEndTurn = false;
 
-    SpaceScript space;
 
     public void Pocket(Player newPlayer) =>
         player.inventory.Add(this);

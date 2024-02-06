@@ -39,7 +39,11 @@ public class Player
         StateManager.onPlayAction += PlayAction;
         StateManager.onReverseAction += ReverseAction;
 
-        
+        ItemList.GetItem("Bear Trap").Pocket(this);
+        ItemList.GetItem("Catapult").Pocket(this);
+        ItemList.GetItem("Beef").Pocket(this);
+        ItemList.GetItem("Orange Gatorade").Pocket(this);
+        ItemList.GetItem("Blue Gatorade").Pocket(this);
     }
 
     void EnableControls()

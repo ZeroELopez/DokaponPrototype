@@ -12,6 +12,7 @@ public class Arrow : IItem
     public string description { get; private set; }
     public int basePrice { get; private set; }
     public Player player { get; private set; }
+    public SpaceScript space { get; private set; }
 
     public Arrow(string newName, string newDescription, int newBasePrice, float newRotation, int newPause, int newDamage)
     {
@@ -27,7 +28,7 @@ public class Arrow : IItem
     public void Pocket(Player player) =>
         player.inventory.Add(this);
 
-    float rotation = 0;
+    public float rotation { get; private set; }
     int pause = 0;
     int damage = 20;
     public void Remove()
@@ -42,6 +43,8 @@ public class Arrow : IItem
     public void Use(Player newPlayer)
     {
         player = newPlayer;
+        space = BoardScript.instance.board[player.boardPos];
+        space.items.Add(this);
 
         if (StateManager.state == GameStates.Play)
         {
@@ -56,7 +59,7 @@ public class Arrow : IItem
 
     public void Undo()
     {
-
+        space.items.Remove(this);
     }
     float rotationSpeed;
 

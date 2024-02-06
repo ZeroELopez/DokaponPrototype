@@ -10,10 +10,11 @@ public interface IItem
     string name { get; }
     string description { get; }
     int basePrice { get; }
-				Player player {get;}
+    Player player { get; }
+    SpaceScript space { get; }
 
     void Use(Player newPlayer);
-	void Undo();
+    void Undo();
 
     void Remove();
     void Pocket(Player newPlayer);
