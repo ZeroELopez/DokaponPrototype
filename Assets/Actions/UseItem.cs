@@ -8,10 +8,10 @@ using UnityEngine;
 public class UseItem : Actions
 {
     public Vector2Int loc { get; set; }
-    public PlayerScript player { get; set; }
+    public Player player { get; set; }
 
     IItem item;
-    public UseItem(IItem newItem, PlayerScript newPlayer)
+    public UseItem(IItem newItem, Player newPlayer)
     {
         item = newItem;
         player = newPlayer;

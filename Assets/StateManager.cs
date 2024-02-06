@@ -6,10 +6,11 @@ using System;
 
 public class StateManager : MonoBehaviour
 {
-    [ShowInInspector]List<PlayerScript> players = new List<PlayerScript>();
+    [ShowInInspector]List<Player> players = new List<Player>();
     [SerializeField] int playerNumber;
     [SerializeField] GameObject playerPrefab;
     public static GameStates state { get; private set; }
+    public static int hour;
     public static Action onPlanningStart;
     public static Action onPlaySetUp;
     public static Action<int> onPlayAction;
@@ -19,7 +20,7 @@ public class StateManager : MonoBehaviour
     {
         for(int i = 0; i < playerNumber;i++)
         {
-            players.Add(Instantiate(playerPrefab, transform).GetComponent<PlayerScript>());
+            players.Add(Instantiate(playerPrefab, transform).GetComponent<PlayerScript>().player = new Player());
             players[i].onTurnDone += TurnSystem;
         }
 
@@ -82,6 +83,7 @@ public class StateManager : MonoBehaviour
 
         while (action < 10)
         {
+            hour = action;
             onPlayAction(action);
             action++;
 

@@ -8,41 +8,50 @@ using UnityEngine;
 public class Food : IItem
 {
     public string name { get; private set; }
-
+    public string description { get; private set; }
     public int basePrice { get; private set; }
 
-public PlayerScript player;
+    public Player player { get; private set; }
 
+    public Food(string newName, string newDescription, int newBasePrice, int newHealth, int newMovement)
+    {
+        name = newName;
+        description = newDescription;
+        basePrice = newBasePrice;
+        health = newHealth;
+        movement = newMovement;
+    }
 
-    public void Pocket(PlayerScript player) =>
+    public void Pocket(Player newPlayer) =>
         player.inventory.Add(this);
 
 
-int health;
-int movement;    
+    int health;
+    int movement;
 
 
     public void Remove() =>
 player.inventory.Remove(this);
-    
 
-    public void SteppedOn(PlayerScript player)
+
+    public void SteppedOn(Player newPlayer)
     {
 
     }
 
-    public void Use(PlayerScript newPlayer)
+    public void Use(Player newPlayer)
     {
-player = newPlayer;
+        player = newPlayer;
 
-								player.Health += health;
-								player.Movement += movement;
+        player.Health += health;
+        player.movementPoints += movement;
     }
 
-public void Undo(){
-player.Health -= health;
-player.Movement -= movement;
-}
+    public void Undo()
+    {
+        player.Health -= health;
+        player.movementPoints -= movement;
+    }
 
-
+    public IItem Copy() => new Food(name, description, basePrice, health, movement);
 }

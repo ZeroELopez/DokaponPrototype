@@ -12,7 +12,7 @@ public class SpaceScript : MonoBehaviour
 
     public List<IItem> items = new List<IItem>();
 
-    public void SteppedOn(PlayerScript player)
+    public void SteppedOn(Player player)
     {
         foreach (IItem item in items)
             item.SteppedOn(player);

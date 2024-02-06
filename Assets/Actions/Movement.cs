@@ -9,12 +9,12 @@ using UnityEngine;
 public class Movement : Actions
 {
     public Vector2Int loc { get; set; }
-    public PlayerScript player { get; set; }
+    public Player player { get; set; }
 
     public Vector2Int dir;
 
 
-    public Movement(Vector2Int newDir, PlayerScript newPlayer)
+    public Movement(Vector2Int newDir, Player newPlayer)
     {
         dir = newDir;
         player = newPlayer;

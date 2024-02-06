@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 public interface IItem
 {
     string name { get; }
-
+    string description { get; }
     int basePrice { get; }
-				PlayerScript player {get;}
+				Player player {get;}
 
-    void Use(PlayerScript newPlayer);
-				void Undo();
+    void Use(Player newPlayer);
+	void Undo();
+
     void Remove();
-    void Pocket(PlayerScript player);
-    void SteppedOn(PlayerScript player);
+    void Pocket(Player newPlayer);
+    void SteppedOn(Player newPlayer);
+
+    IItem Copy();
 }
 

@@ -2870,11 +2870,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6a0295ae6609a4eafb5be8f212c43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  Controllable: 0
-  movementPoints: 5
-  boardPos: {x: 0, y: 0}
-  money: 1000
+  player:
+    MaxHealth: 100
+    money: 1000
+    movementPoints: 5
+    boardPos: {x: 0, y: 0}
   followSpeed: 20
 --- !u!212 &2079157987
 SpriteRenderer:
@@ -2939,6 +2939,7 @@ GameObject:
   - component: {fileID: 2093792148}
   - component: {fileID: 2093792147}
   - component: {fileID: 2093792149}
+  - component: {fileID: 2093792150}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -3023,6 +3024,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   playerPrefab: {fileID: 2079157984}
+--- !u!114 &2093792150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093792146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a58b128ed7506438241677caf96ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2107808651
 GameObject:
   m_ObjectHideFlags: 0

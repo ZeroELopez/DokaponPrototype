@@ -23,6 +23,8 @@ public class BoardScript : MonoBehaviour
             Destroy(gameObject);
 
         instance = this;
+
+        ItemList.CreateItems();
     }
 
     [SerializeField] Vector2Int size;
