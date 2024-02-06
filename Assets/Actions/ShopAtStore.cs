@@ -29,6 +29,7 @@ shop = newShop;
         shop.Use(player);
 shop.BuyItem += AddItem;
 shop.UndoBuy += RemoveItem;
+shop.Conirm += Confirm;
 
 player.movementPoints--;
     }
@@ -38,6 +39,10 @@ void AddItem(IItem newItem) => items.Add(newItem);
 void RemoveItem() => items.RemoveAt(items.Count - 1);
 
 void Confirm(){
+shop.BuyItem -= AddItem;
+shop.UndoBuy -= RemoveItem;
+shop.Conirm -= Confirm;
+
 foreach(IItem item in items)
 item.Pocket(player);
 }
