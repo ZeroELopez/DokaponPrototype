@@ -22,7 +22,7 @@ public static class ItemList
 
     public static void CreateItems()
     {
-        prefabItems.AddRange(new IItem[8]
+        prefabItems.AddRange(new IItem[11]
         {
                         new Food(
     newName: "Useless Rock",
