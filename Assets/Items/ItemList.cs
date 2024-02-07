@@ -82,6 +82,31 @@ public static class ItemList
     newDamage:5,
     EndTurn: true
     ),
+
+    new Store(
+newName: "Trap Store", 
+newDescription: "This is the trap store, careful where you step.", 
+newBasePrice: 5000, 
+newMoney: 0, 
+newMultiply: 1f, 
+string[] {"Bear Trap", "Rope Trap"}
+),
+new Store(
+newName: "Food Store", 
+newDescription: "I swear to god, if you eat any of my products before paying I'll fucking destroy you", 
+newBasePrice: 5000, 
+newMoney: 0, 
+newMultiply: 1f, 
+string[] {"Beef", "Orage Gaterade", "Blue Gaterade"}
+),
+new Store(
+newName: "War Armory", 
+newDescription: "Our men are willing to do war crimes...for a price", 
+newBasePrice: 5000, 
+newMoney: 0, 
+newMultiply: 1f, 
+string[] {"Catapult", "Volley of Arrows"}
+)
         }
 
         );
