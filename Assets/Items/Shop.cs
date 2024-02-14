@@ -108,7 +108,7 @@ Confirm();
 UnsetInputs();
 }
 
-    public IItem Copy() => new Arrow(name, description, basePrice, rotation, pause, damage);
+    public IItem Copy() => new Store(name, description, basePrice, money, multiply, itemNames);
 
 
 }
