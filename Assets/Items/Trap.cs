@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 [System.Serializable]
 public class Trap : IItem
 {
+    public Sprite icon { get; private set; }
     public string name { get; private set; }
     public string description { get; private set; }
     public int basePrice { get; private set; }

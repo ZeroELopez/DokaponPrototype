@@ -39,20 +39,22 @@ public class Player
         StateManager.onPlayAction += PlayAction;
         StateManager.onReverseAction += ReverseAction;
 
-        ItemList.GetItem("Bear Trap").Pocket(this);
-        ItemList.GetItem("Catapult").Pocket(this);
-        ItemList.GetItem("Beef").Pocket(this);
-        ItemList.GetItem("Orange Gatorade").Pocket(this);
-        ItemList.GetItem("Blue Gatorade").Pocket(this);
+        //ItemList.GetItem("Bear Trap").Pocket(this);
+        //ItemList.GetItem("Catapult").Pocket(this);
+        //ItemList.GetItem("Beef").Pocket(this);
+        //ItemList.GetItem("Orange Gatorade").Pocket(this);
+        //ItemList.GetItem("Blue Gatorade").Pocket(this);
     }
 
     void EnableControls()
     {
+        Debug.Log("Enable Controls");
         Inputs.instance.controls.Player.Movement.performed += onDirection;
 
         Inputs.instance.controls.Player.Confirm.performed += Confirm;
         Inputs.instance.controls.Player.UseTopItem.performed += UseTopItem;
         Inputs.instance.controls.Player.UndoAction.performed += UndoAction;
+        Inputs.instance.controls.Player.Shop.performed += OpenShop;
     }
 
     void DisableControls()
@@ -62,6 +64,7 @@ public class Player
         Inputs.instance.controls.Player.Confirm.performed -= Confirm;
         Inputs.instance.controls.Player.UseTopItem.performed -= UseTopItem;
         Inputs.instance.controls.Player.UndoAction.performed -= UndoAction;
+        Inputs.instance.controls.Player.Shop.performed -= OpenShop;
     }
 
     public void OnDestroy()
@@ -122,6 +125,13 @@ public class Player
         onTurnDone?.Invoke();
     }
     void UseTopItem(InputAction.CallbackContext context) => UseItem(inventory.Count - 1);
+
+    void OpenShop(InputAction.CallbackContext context)
+    {
+        Debug.Log("Opening Shop");
+        if (BoardScript.instance.board[boardPos].store != null)
+            new ShopAtStore(this, BoardScript.instance.board[boardPos].store).Play();
+    }
 
     void UndoAction(InputAction.CallbackContext context)
     {

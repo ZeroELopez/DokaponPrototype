@@ -16,14 +16,16 @@ public class StateManager : MonoBehaviour
     public static Action<int> onPlayAction;
     public static Action<int> onReverseAction;
 
-    private void Awake()
+    private void Start()
     {
-        for(int i = 0; i < playerNumber;i++)
+        ItemList.CreateItems();
+
+        for (int i = 0; i < playerNumber;i++)
         {
             players.Add(Instantiate(playerPrefab, transform).GetComponent<PlayerScript>().player = new Player());
             players[i].onTurnDone += TurnSystem;
         }
-
+        Debug.Log("State Manager Awake");
         StartPlanning();
     }
 

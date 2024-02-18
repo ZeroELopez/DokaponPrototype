@@ -12,12 +12,12 @@ public class ShopAtStore : Actions
 
     Store shop;
 
-				List<IItem> items = new List<IItem>();
+    List<IItem> items = new List<IItem>();
 
     public ShopAtStore(Player newPlayer, Store newShop)
     {
         player = newPlayer;
-shop = newShop;
+        shop = newShop;
     }
 
     public void Play()
@@ -27,30 +27,31 @@ shop = newShop;
 
 
         shop.Use(player);
-shop.BuyItem += AddItem;
-shop.UndoBuy += RemoveItem;
-shop.Conirm += Confirm;
+        shop.onBuyItem += AddItem;
+        shop.onUndoBuy += RemoveItem;
+        shop.onConfirm += Confirm;
 
-player.movementPoints--;
+        player.movementPoints--;
     }
 
-void AddItem(IItem newItem) => items.Add(newItem);
+    void AddItem(IItem newItem) => items.Add(newItem);
 
-void RemoveItem() => items.RemoveAt(items.Count - 1);
+    void RemoveItem() => items.RemoveAt(items.Count - 1);
 
-void Confirm(){
-shop.BuyItem -= AddItem;
-shop.UndoBuy -= RemoveItem;
-shop.Conirm -= Confirm;
+    void Confirm()
+    {
+        shop.onBuyItem -= AddItem;
+        shop.onUndoBuy -= RemoveItem;
+        shop.onConfirm -= Confirm;
 
-foreach(IItem item in items)
-item.Pocket(player);
-}
+        foreach (IItem item in items)
+            item.Pocket(player);
+    }
 
     public void Reverse()
     {
-        foreach(IItem item in items)
-item.Remove(player);
+        foreach (IItem item in items)
+            player.inventory.Remove(item);
         player.movementPoints++;
     }
 

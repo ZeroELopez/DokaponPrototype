@@ -8,21 +8,23 @@ using UnityEngine.InputSystem;
 
 public class Store : IItem
 {
+    public Sprite icon { get; private set; }
     public string name { get; private set; }
     public string description { get; private set; }
     public int basePrice { get; private set; }
     public Player player { get; private set; }
     public SpaceScript space { get; private set; }
 
-				public List<IItem> inventory = new List<IItem>();
-public Action<IItem> BuyItem;
-public Action UndoBuy;
-public Action Confirm;
-int money;
-float multiply 1.0f;
+    public List<IItem> inventory = new List<IItem>();
+    public Action<IItem> onBuyItem;
+    public Action onUndoBuy;
+    public Action onConfirm;
+    public Action<IItem> onNewSelection;
+    int money;
+    public float multiply = 1.0f;
 
-int select = 0;
-
+    int select = 0;
+    string[] allItemNames;
 
     public Store(string newName, string newDescription, int newBasePrice, int newMoney, float newMultiply, string[] itemNames)
     {
@@ -30,28 +32,36 @@ int select = 0;
         description = newDescription;
         basePrice = newBasePrice;
         money = newMoney;
-multiply = newMultiply;
+        multiply = newMultiply;
+        allItemNames = itemNames;
 
-foreach (string n in itemNames)
-inventory.Add(ItemList.Grap(n));
+
+        //foreach (string n in itemNames)
+        //    inventory.Add(ItemList.GetItem(n));
     }
 
 
     public void Pocket(Player player) =>
         player.inventory.Add(this);
 
-   
+
     public void Remove()
     {
     }
 
     public void SteppedOn(Player newPlayer)
     {
-        
+
     }
 
     public void Use(Player newPlayer)
     {
+        inventory.Clear();
+
+        foreach (string n in allItemNames)
+            inventory.Add(ItemList.GetItem(n));
+
+
         player = newPlayer;
         space = BoardScript.instance.board[player.boardPos];
         space.items.Add(this);
@@ -64,7 +74,7 @@ inventory.Add(ItemList.Grap(n));
 
         player.SetControllable(false);
         SetInputs();
-
+        onNewSelection?.Invoke(inventory[select]);
     }
 
     public void Undo()
@@ -75,14 +85,22 @@ inventory.Add(ItemList.Grap(n));
 
     void SetInputs()
     {
+        ShowStore.instance.OpenStore(this);
+
+        onNewSelection += ShowStore.instance.UpdateDetails;
         Inputs.instance.controls.Player.Movement.performed += onDirection;
-        Inputs.instance.controls.Player.Confirm.performed += Confirm;
+        Inputs.instance.controls.Player.Confirm.performed += Buy;
+        Inputs.instance.controls.Player.UndoAction.performed += UndoBuy;
     }
 
     void UnsetInputs()
     {
+        ShowStore.instance.CloseStore();
+
+        onNewSelection -= ShowStore.instance.UpdateDetails;
         Inputs.instance.controls.Player.Movement.performed -= onDirection;
-        Inputs.instance.controls.Player.Confirm.performed -= Confirm;
+        Inputs.instance.controls.Player.Confirm.performed -= Buy;
+        Inputs.instance.controls.Player.UndoAction.performed -= UndoBuy;
         player.SetControllable(true);
     }
 
@@ -90,25 +108,29 @@ inventory.Add(ItemList.Grap(n));
     {
         Vector2 floatDir = context.ReadValue<Vector2>();
 
-        select += Mathf.ToInt(floatDir.y);
-select = Mathf.Clamp(select,0,inventory.Count - 1);
+        select += -Mathf.RoundToInt(floatDir.y);
+        select = Mathf.Clamp(select, 0, inventory.Count - 1);
+
+        onNewSelection?.Invoke(inventory[select]);
     }
 
-void Buy(InputAction.CallbackContext context){
-BuyItem(inventory[select]);
-}
+    void Buy(InputAction.CallbackContext context)
+    {
+        onBuyItem?.Invoke(inventory[select]);
+    }
 
-void UndoBuy(InputAction.CallbackContext context){
-UndoBuy();
-}
+    void UndoBuy(InputAction.CallbackContext context)
+    {
+        onUndoBuy?.Invoke();
+    }
 
     void Exit(InputAction.CallbackContext context)
-        {
-Confirm();
-UnsetInputs();
-}
+    {
+        onConfirm();
+        UnsetInputs();
+    }
 
-    public IItem Copy() => new Store(name, description, basePrice, money, multiply, itemNames);
+    public IItem Copy() => new Store(name, description, basePrice, money, multiply, allItemNames);
 
 
 }

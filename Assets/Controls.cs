@@ -55,6 +55,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Shop"",
+                    ""type"": ""Button"",
+                    ""id"": ""064effb2-9f3a-4eae-b220-184a594139d4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""cfdff4a3-d0f2-4bb5-a2e9-6e4fbb9cd7b7"",
@@ -152,6 +161,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c49709d7-5617-4426-9850-944b17da3ed7"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -266,6 +286,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Confirm = m_Player.FindAction("Confirm", throwIfNotFound: true);
         m_Player_UseTopItem = m_Player.FindAction("UseTopItem", throwIfNotFound: true);
         m_Player_UndoAction = m_Player.FindAction("UndoAction", throwIfNotFound: true);
+        m_Player_Shop = m_Player.FindAction("Shop", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         // ItemSetUp
         m_ItemSetUp = asset.FindActionMap("ItemSetUp", throwIfNotFound: true);
@@ -335,6 +356,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Confirm;
     private readonly InputAction m_Player_UseTopItem;
     private readonly InputAction m_Player_UndoAction;
+    private readonly InputAction m_Player_Shop;
     private readonly InputAction m_Player_Movement;
     public struct PlayerActions
     {
@@ -343,6 +365,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Confirm => m_Wrapper.m_Player_Confirm;
         public InputAction @UseTopItem => m_Wrapper.m_Player_UseTopItem;
         public InputAction @UndoAction => m_Wrapper.m_Player_UndoAction;
+        public InputAction @Shop => m_Wrapper.m_Player_Shop;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -362,6 +385,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @UndoAction.started += instance.OnUndoAction;
             @UndoAction.performed += instance.OnUndoAction;
             @UndoAction.canceled += instance.OnUndoAction;
+            @Shop.started += instance.OnShop;
+            @Shop.performed += instance.OnShop;
+            @Shop.canceled += instance.OnShop;
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
@@ -378,6 +404,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @UndoAction.started -= instance.OnUndoAction;
             @UndoAction.performed -= instance.OnUndoAction;
             @UndoAction.canceled -= instance.OnUndoAction;
+            @Shop.started -= instance.OnShop;
+            @Shop.performed -= instance.OnShop;
+            @Shop.canceled -= instance.OnShop;
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
@@ -457,6 +486,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnConfirm(InputAction.CallbackContext context);
         void OnUseTopItem(InputAction.CallbackContext context);
         void OnUndoAction(InputAction.CallbackContext context);
+        void OnShop(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
     }
     public interface IItemSetUpActions

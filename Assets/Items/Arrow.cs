@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class Arrow : IItem
 {
+    public Sprite icon { get; private set; }
     public string name { get; private set; }
     public string description { get; private set; }
     public int basePrice { get; private set; }
