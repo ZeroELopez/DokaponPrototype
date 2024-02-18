@@ -12,7 +12,7 @@ public class ShowItem : MonoBehaviour
     [SerializeField] TextMeshProUGUI description;
     [SerializeField] TextMeshProUGUI cost;
 
-    public void UpdateItem(IItem newItem, Store store = null)
+    public void UpdateItem(IItem newItem, Inventory store = null)
     {
         item = newItem;
 

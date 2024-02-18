@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Store : IItem
+public class Inventory : IItem
 {
     public Sprite icon { get; private set; }
     public string name { get; private set; }
@@ -15,7 +15,7 @@ public class Store : IItem
     public Player player { get; private set; }
     public SpaceScript space { get; private set; }
 
-    public List<IItem> inventory = new List<IItem>();
+    List<IItem> items = new List<IItem>();
     public Action<IItem> onBuyItem;
     public Action onUndoBuy;
     public Action onConfirm;
@@ -26,7 +26,7 @@ public class Store : IItem
     int select = 0;
     string[] allItemNames;
 
-    public Store(string newName, string newDescription, int newBasePrice, int newMoney, float newMultiply, string[] itemNames)
+    public Inventory(string newName, string newDescription, int newBasePrice, int newMoney, float newMultiply, string[] itemNames)
     {
         name = newName;
         description = newDescription;
@@ -40,9 +40,17 @@ public class Store : IItem
         //    inventory.Add(ItemList.GetItem(n));
     }
 
+    public IItem this[int index] => items[index];
+
+    public void Remove(IItem item) => items.Remove(item);
+    public void Add(IItem item) => items.Add(item);
+
+    public void Clear() => items.Clear();
+    public int Count => items.Count;
+    public List<IItem> getItems() => items;
 
     public void Pocket(Player player) =>
-        player.inventory.Add(this);
+        player.inventory.items.Add(this);
 
 
     public void Remove()
@@ -56,10 +64,10 @@ public class Store : IItem
 
     public void Use(Player newPlayer)
     {
-        inventory.Clear();
+        items.Clear();
 
         foreach (string n in allItemNames)
-            inventory.Add(ItemList.GetItem(n));
+            items.Add(ItemList.GetItem(n));
 
 
         player = newPlayer;
@@ -74,7 +82,7 @@ public class Store : IItem
 
         player.SetControllable(false);
         SetInputs();
-        onNewSelection?.Invoke(inventory[select]);
+        onNewSelection?.Invoke(items[select]);
     }
 
     public void Undo()
@@ -109,14 +117,14 @@ public class Store : IItem
         Vector2 floatDir = context.ReadValue<Vector2>();
 
         select += -Mathf.RoundToInt(floatDir.y);
-        select = Mathf.Clamp(select, 0, inventory.Count - 1);
+        select = Mathf.Clamp(select, 0, items.Count - 1);
 
-        onNewSelection?.Invoke(inventory[select]);
+        onNewSelection?.Invoke(items[select]);
     }
 
     void Buy(InputAction.CallbackContext context)
     {
-        onBuyItem?.Invoke(inventory[select]);
+        onBuyItem?.Invoke(items[select]);
     }
 
     void UndoBuy(InputAction.CallbackContext context)
@@ -130,7 +138,7 @@ public class Store : IItem
         UnsetInputs();
     }
 
-    public IItem Copy() => new Store(name, description, basePrice, money, multiply, allItemNames);
+    public IItem Copy() => new Inventory(name, description, basePrice, money, multiply, allItemNames);
 
 
 }

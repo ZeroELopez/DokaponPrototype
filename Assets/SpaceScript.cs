@@ -11,7 +11,7 @@ public class SpaceScript : MonoBehaviour
     public bool available { get; private set; }
     [SerializeField] string shopName;
 
-    public Store store;
+    public Inventory store;
 
 
     public List<IItem> items = new List<IItem>();
@@ -25,7 +25,7 @@ public class SpaceScript : MonoBehaviour
     private void Start()
     {
         if (shopName != "")
-            store = ItemList.GetItem(shopName)as Store;
+            store = ItemList.GetItem(shopName)as Inventory;
         BoardScript.instance.board.Add(loc, this);
         available = true;
     }

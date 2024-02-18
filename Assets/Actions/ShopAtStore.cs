@@ -10,11 +10,11 @@ public class ShopAtStore : Actions
     public Vector2Int loc { get; set; }
     public Player player { get; set; }
 
-    Store shop;
+    Inventory shop;
 
     List<IItem> items = new List<IItem>();
 
-    public ShopAtStore(Player newPlayer, Store newShop)
+    public ShopAtStore(Player newPlayer, Inventory newShop)
     {
         player = newPlayer;
         shop = newShop;
@@ -25,13 +25,18 @@ public class ShopAtStore : Actions
         if (player.movementPoints <= 0)
             return;
 
+        player.movementPoints--;
+
+        if (StateManager.state == GameStates.Play)
+        {
+            Confirm();
+            return;
+        }
 
         shop.Use(player);
         shop.onBuyItem += AddItem;
         shop.onUndoBuy += RemoveItem;
         shop.onConfirm += Confirm;
-
-        player.movementPoints--;
     }
 
     void AddItem(IItem newItem) => items.Add(newItem);
@@ -46,6 +51,12 @@ public class ShopAtStore : Actions
 
         foreach (IItem item in items)
             item.Pocket(player);
+
+        if (StateManager.state == GameStates.Play)
+            return;
+
+        if (items.Count > 0)
+            player.actions.Add(this);
     }
 
     public void Reverse()

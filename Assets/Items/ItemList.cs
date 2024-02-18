@@ -85,7 +85,7 @@ public static class ItemList
     EndTurn: true
     ),
 
-    new Store(
+    new Inventory(
 newName: "Trap Store",
 newDescription: "This is the trap store, careful where you step.",
 newBasePrice: 5000,
@@ -93,7 +93,7 @@ newMoney: 0,
 newMultiply: 1f,
 new string[2] {"Bear Trap", "Rope Trap"}
 ),
-new Store(
+new Inventory(
 newName: "Food Store",
 newDescription: "I swear to god, if you eat any of my products before paying I'll fucking destroy you",
 newBasePrice: 5000,
@@ -101,7 +101,7 @@ newMoney: 0,
 newMultiply: 1f,
 new string[3] { "Beef", "Orange Gatorade", "Blue Gatorade" }
 ),
-new Store(
+new Inventory(
 newName: "War Armory",
 newDescription: "Our men are willing to do war crimes...for a price",
 newBasePrice: 5000,

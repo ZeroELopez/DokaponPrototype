@@ -6,7 +6,7 @@ using TMPro;
 
 public class ShowStore : MonoBehaviour
 {
-    Store store;
+    Inventory store;
 
     [SerializeField] ShowItem itemDetails;
     [SerializeField] GameObject storeObj;
@@ -24,7 +24,7 @@ public class ShowStore : MonoBehaviour
         instance = this;
     }
 
-    public void OpenStore(Store newStore)
+    public void OpenStore(Inventory newStore)
     {
         storeObj.SetActive(true);
         store = newStore;
@@ -34,7 +34,7 @@ public class ShowStore : MonoBehaviour
 
         itemList.Clear();
 
-        foreach(IItem item in newStore.inventory)
+        foreach(IItem item in newStore.getItems())
         {
             itemList.Add(Instantiate(itemListPrefab, listParent));
 

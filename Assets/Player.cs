@@ -11,8 +11,9 @@ public class Player
     [SerializeField] int MaxHealth = 100;
     public int Health;
 
-    public List<IItem> inventory = new List<IItem>();
-    public int money = 1000;
+    public Inventory inventory;
+    //public List<IItem> inventory = new List<IItem>();
+    //public int money = 1000;
 
     public void SetControllable(bool on)
     {
@@ -39,6 +40,7 @@ public class Player
         StateManager.onPlayAction += PlayAction;
         StateManager.onReverseAction += ReverseAction;
 
+        inventory = new Inventory("Player Inventory", "This is the inventory of Player X", 0, 0, 1, new string[0]);
         //ItemList.GetItem("Bear Trap").Pocket(this);
         //ItemList.GetItem("Catapult").Pocket(this);
         //ItemList.GetItem("Beef").Pocket(this);
